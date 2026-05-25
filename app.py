@@ -4,24 +4,13 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 import joblib
-
-# nltk.download('punkt', quiet= True)
-# nltk.download('stopwords', quiet= True)
-
 import nltk
 
-def ensure_nltk():
-    try:
-        nltk.data.find('tokenizers/punkt')
-    except LookupError:
-        nltk.download('punkt', quiet=True)
 
-    try:
-        nltk.data.find('corpora/stopwords')
-    except LookupError:
-        nltk.download('stopwords', quiet=True)
 
-ensure_nltk()
+nltk.download('punkt', quiet=True)
+nltk.download('stopwords', quiet=True)
+nltk.download('punkt_tab', quiet=True)
 
 
 stemmer = PorterStemmer()
@@ -29,7 +18,9 @@ cached_stopwords = set(stopwords.words('english'))
 
 def text_preprocessing(text):
     text = text.lower()
-    tokens = word_tokenize(text)
+    
+    
+    tokens = word_tokenize(text, preserve_line=True)
     
     cleaned_tokens = []
     for word in tokens:    
